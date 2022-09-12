@@ -1,0 +1,23 @@
+.main {
+    height: calc(100vh - 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gold;
+
+}
+
+.paper {
+    padding: 30px;
+    width: 25%
+}
+
+.title {
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.checkbox {
+    margin-top: 20px;
+}
