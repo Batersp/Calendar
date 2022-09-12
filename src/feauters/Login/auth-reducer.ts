@@ -43,12 +43,30 @@ export const Login = createAsyncThunk(
                     dispatch(setUser({user: {userName: param.userName, password: param.password}}))
                     dispatch(setIsLoggedIn({isLoggedIn: true}))
                     dispatch(setError({error: ''}))
-                    dispatch(setAppSnackbarValue({type: snackbarType.SUCCESS, message: 'Вы вошли'}))
+                    dispatch(setAppSnackbarValue({type: snackbarType.SUCCESS, message: 'Вы успешно авторизовались'}))
                 } else {
                     dispatch(setError({error: 'Чел, какая-то ошибка, походу пароль или логин неверный'}))
                     dispatch(setAppSnackbarValue({type: snackbarType.ERROR, message: 'неверный логин или пароль'}))
                 }
                 dispatch(setIsLoading({setIsLoading: false}))
+            }, 3000)
+
+        } catch (e) {
+
+        }
+    }
+)
+
+export const Logout = createAsyncThunk(
+    'auth/login',
+    async (param, {dispatch}) => {
+        try {
+            dispatch(setIsLoading({setIsLoading: true}))
+            setTimeout(async () => {
+                dispatch(setUser({user: {} as IUserType}))
+                dispatch(setIsLoggedIn({isLoggedIn: false}))
+                dispatch(setIsLoading({setIsLoading: false}))
+                dispatch(setAppSnackbarValue({type: snackbarType.SUCCESS, message: 'Вы успешно вышли'}))
             }, 3000)
 
         } catch (e) {

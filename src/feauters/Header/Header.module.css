@@ -1,4 +1,24 @@
 .main {
-    height: 100px;
+    height: 50px;
     background-color: lightpink;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.icon {
+    margin-right: 50px;
+}
+
+.name {
+    margin-right: 50px;
+    color: blue;
+    font-weight: bold;
+    font-size: 25px;
+    text-shadow: 1px -5px 1px rgba(17, 17, 17, 0.52);
+    letter-spacing: 4px;
+}
+
+.login {
+    margin-right: 50px;
 }
