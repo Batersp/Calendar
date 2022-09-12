@@ -8,6 +8,7 @@ import {Calendar} from "../feauters/Calendar/Calendar";
 import {useAppSelector} from "../common/hooks/hooks";
 import {selectIsLoading} from "../feauters/Login/selectors";
 import {LinearProgress} from "@mui/material";
+import {InfoSnackbar} from "../common/components/Snackbar/Snackbar";
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
             <Header/>
 
             {isLoading && <LinearProgress/>}
-
+            <InfoSnackbar/>
             <Routes>
                 <Route path='/' element={<Navigate to={path.CALENDAR}/>}/>
                 <Route path={path.LOGIN} element={<LoginComponent/>}/>

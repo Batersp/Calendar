@@ -1,11 +1,18 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {authApi} from "../../api/authApi";
+import {snackbarType} from "../../common/enums/SnackbarType";
 
 export type InitStateType = {
     isLoggedIn: boolean
     Iuser: IUserType
     isLoading: boolean
     error: string
+    snackbar: SnackbarType
+}
+
+export type SnackbarType = {
+    type: snackbarType | undefined
+    message: string | null
 }
 
 export type IUserType = {
@@ -17,7 +24,8 @@ const initState: InitStateType = {
     isLoggedIn: false,
     Iuser: {} as IUserType,
     isLoading: false,
-    error: ''
+    error: '',
+    snackbar: {} as SnackbarType
 }
 
 export const Login = createAsyncThunk(
@@ -35,9 +43,10 @@ export const Login = createAsyncThunk(
                     dispatch(setUser({user: {userName: param.userName, password: param.password}}))
                     dispatch(setIsLoggedIn({isLoggedIn: true}))
                     dispatch(setError({error: ''}))
+                    dispatch(setAppSnackbarValue({type: snackbarType.SUCCESS, message: 'Вы вошли'}))
                 } else {
-
                     dispatch(setError({error: 'Чел, какая-то ошибка, походу пароль или логин неверный'}))
+                    dispatch(setAppSnackbarValue({type: snackbarType.ERROR, message: 'неверный логин или пароль'}))
                 }
                 dispatch(setIsLoading({setIsLoading: false}))
             }, 3000)
@@ -64,12 +73,18 @@ export const slice = createSlice({
             setError: (state, action: PayloadAction<{ error: string }>) => {
 
                 state.error = action.payload.error
+            },
+            setAppSnackbarValue(
+                state,
+                action: PayloadAction<{ type: snackbarType | undefined; message: string | null }>,
+            ) {
+                state.snackbar = action.payload;
             }
         }
     }
 )
 
-export const {setIsLoading, setUser, setIsLoggedIn, setError} = slice.actions
+export const {setIsLoading, setUser, setIsLoggedIn, setError, setAppSnackbarValue} = slice.actions
 
 
 
