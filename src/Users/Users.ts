@@ -1,0 +1,14 @@
+export const allUsers = [
+    {
+        "userName" :  "user",
+        "password" : "12345"
+    },
+    {
+        "userName" :  "admin",
+        "password" : "54321"
+    },
+    {
+        "userName" :  "pasha",
+        "password" : "2614"
+    }
+]
