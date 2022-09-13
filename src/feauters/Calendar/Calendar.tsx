@@ -1,19 +1,18 @@
-import React from 'react';
-import {authSelectors} from "../Login";
-import {path} from "../../common/enums/path";
-import {Navigate} from 'react-router-dom'
-import {useAppSelector} from "../../common/hooks/hooks";
-
+import React, {useState} from 'react';
+import style from './Calendar.module.css'
+import {CalendarInto} from "./CalendarInto/CalendarInto";
+import Button from "@mui/material/Button/Button";
+import {BasicModal} from "../../common/components/Modal/Modal";
 
 export const Calendar = () => {
 
-    const auth = useAppSelector(authSelectors.selectIsAuth)
-    if(!auth) {
-        return <Navigate to={(path.LOGIN)}/>
-    }
+    const [openModal, setOpenModal] = useState<boolean>(false)
+
     return (
-        <div>
-            CALENDAR
+        <div className={style.main}>
+            <CalendarInto/>
+            <Button onClick={() => setOpenModal(true)} fullWidth variant="contained">Добавить событие</Button>
+            <BasicModal open={openModal} callback={setOpenModal}/>
         </div>
     );
 };
