@@ -5,7 +5,6 @@ import Modal from '@mui/material/Modal';
 import style from './Modal.module.css'
 import {Paper} from "@mui/material";
 import {Formik} from "formik";
-import {validateLogin} from "../../../feauters/Login/validateLogin";
 import {ModalForm} from "./ModalForm/ModalForm";
 import {validateModalForm} from "./ModalForm/validateModalForm";
 
@@ -35,8 +34,8 @@ type PropsType = {
 export const  BasicModal: React.FC<PropsType> = ({open, callback}) => {
     const handleClose = () => callback(false);
 
-    const onSubmitHandler = () => {
-
+    const onSubmitHandler = (values: ModalFormType) => {
+        console.log(values)
     }
 
     return (
@@ -50,7 +49,6 @@ export const  BasicModal: React.FC<PropsType> = ({open, callback}) => {
                 <Box sx={styles}>
 
                     <div className={style.main}>
-                        <Paper elevation={3} className={style.paper}>
                             <Typography variant="h4" className={style.title}>
                                 Add Event
                             </Typography>
@@ -62,7 +60,6 @@ export const  BasicModal: React.FC<PropsType> = ({open, callback}) => {
                             >
                                 {formik => <ModalForm formik={formik}/>}
                             </Formik>
-                        </Paper>
                     </div>
                 </Box>
             </Modal>

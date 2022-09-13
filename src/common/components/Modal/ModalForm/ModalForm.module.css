@@ -1,0 +1,22 @@
+.main {
+    margin-top: 30px;
+
+}
+
+.nameEvent {
+
+}
+
+.dataPicker {
+    margin-top: 30px;
+}
+
+.select {
+    margin-top: 30px;
+}
+
+.btn {
+    display: flex;
+    justify-content: end;
+    margin-top: 30px;
+}
