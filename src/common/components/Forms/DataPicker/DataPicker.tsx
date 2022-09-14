@@ -5,7 +5,6 @@ import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
 import React, {ChangeEvent, SetStateAction} from "react";
 import {Dayjs} from "dayjs";
 import {useField} from "formik";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {ModalFormType} from "../../Modal/Modal";
 import {formatDate} from "../../../../utils/date";
 import FormHelperText from "@mui/material/FormHelperText/FormHelperText";
@@ -24,21 +23,21 @@ export const DataPicker: React.FC<PropsType> = ({name, label, setValues, values}
     const [field, meta] = useField(name);
     return (
         <FormControl>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-                label={label}
-                value={value}
-                onChange={(newValue) => {
-                    if(newValue) {
-                        setValues({...values, dataEvent: formatDate(newValue?.toDate())})
-                    }
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                    label={label}
+                    value={value}
+                    onChange={(newValue) => {
+                        if (newValue) {
+                            setValues({...values, dataEvent: formatDate(newValue?.toDate())})
+                        }
 
-                    setValue(newValue);
-                }}
-                renderInput={(params) => <TextField {...params} />}
+                        setValue(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
 
-            />
-        </LocalizationProvider>
+                />
+            </LocalizationProvider>
             {meta.touched && meta.error && <FormHelperText error>{meta.error}</FormHelperText>}
         </FormControl>
     )

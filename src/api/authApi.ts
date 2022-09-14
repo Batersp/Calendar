@@ -5,5 +5,9 @@ import axios from "axios";
 export const authApi = {
     login() {
         return axios.get<IUserType[]>('./users.json')
+    },
+
+    fetchGuests() {
+        return axios.get<IUserType[]>('./users.json')
     }
 }
