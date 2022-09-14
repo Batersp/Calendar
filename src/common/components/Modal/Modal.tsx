@@ -38,6 +38,8 @@ export const  BasicModal: React.FC<PropsType> = ({open, callback}) => {
         console.log(values)
     }
 
+    const initState: ModalFormType = {nameEvent: '', dataEvent: '', guest: ''}
+
     return (
         <div>
             <Modal
@@ -53,7 +55,7 @@ export const  BasicModal: React.FC<PropsType> = ({open, callback}) => {
                                 Add Event
                             </Typography>
                             <Formik
-                                initialValues={{nameEvent: '', dataEvent: '', guest: ''}}
+                                initialValues={initState}
                                 validationSchema={validateModalForm}
                                 onSubmit={onSubmitHandler}
                                 validateOnMount={false}

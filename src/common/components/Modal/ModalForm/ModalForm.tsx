@@ -14,7 +14,7 @@ type PropsType = {
 };
 
 export const ModalForm: React.FC<PropsType> = ({formik}) => {
-    const {isValid, dirty, isSubmitting, handleChange, values} = formik
+    const {isValid, dirty, isSubmitting, handleChange, values, setValues} = formik
     return (
         <Form>
             <FormGroup>
@@ -24,7 +24,7 @@ export const ModalForm: React.FC<PropsType> = ({formik}) => {
             </div>
 
             <div className={style.dataPicker}>
-                <DataPicker handleChange={handleChange} value={values.dataEvent} name='dataEvent'/>
+                <DataPicker label='Data event' setValues={setValues} handleChange={handleChange} values={values} name='dataEvent'/>
             </div>
 
             <div className={style.select}>

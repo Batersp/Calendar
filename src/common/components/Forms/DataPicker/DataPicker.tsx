@@ -2,35 +2,47 @@ import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DatePicker} from "@mui/x-date-pickers";
 import {TextField} from "@mui/material";
 import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import React from "react";
+import React, {ChangeEvent, SetStateAction} from "react";
 import {Dayjs} from "dayjs";
 import {useField} from "formik";
-import {SelectChangeEvent} from "@mui/material/Select";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import {ModalFormType} from "../../Modal/Modal";
+import {formatDate} from "../../../../utils/date";
+import FormHelperText from "@mui/material/FormHelperText/FormHelperText";
+import FormControl from "@mui/material/FormControl";
 
 type PropsType = {
+    label: string
     name: string
-    value: string
-    handleChange: (value: number | null, keyboardInputValue?: string | undefined) => void
+    values: ModalFormType
+    setValues: (e: SetStateAction<ModalFormType>) => void
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const DataPicker: React.FC<PropsType> = ({name, value, handleChange}) => {
-    /*const [value, setValue] = React.useState<Dayjs | null>(null);*/
+export const DataPicker: React.FC<PropsType> = ({name, label, setValues, values}) => {
+    const [value, setValue] = React.useState<Dayjs | null>(null);
     const [field, meta] = useField(name);
     return (
+        <FormControl>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-                {...field}
-
-                label="Basic example"
+                label={label}
                 value={value}
-                onChange={handleChange}
+                onChange={(newValue) => {
+                    if(newValue) {
+                        setValues({...values, dataEvent: formatDate(newValue?.toDate())})
+                    }
+
+                    setValue(newValue);
+                }}
                 renderInput={(params) => <TextField {...params} />}
+
             />
         </LocalizationProvider>
+            {meta.touched && meta.error && <FormHelperText error>{meta.error}</FormHelperText>}
+        </FormControl>
     )
 }
 
-/*(newValue) => {
-    setValue(newValue);
-}*/
+
 

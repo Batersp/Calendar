@@ -34,7 +34,7 @@ export const  CalendarInto = () => {
                 renderInput={(params) => <TextField {...params} />}
                 componentsProps={{
                     actionBar: {
-                        actions: ['accept'],
+                        actions: ['today'],
                     },
                 }}
 
