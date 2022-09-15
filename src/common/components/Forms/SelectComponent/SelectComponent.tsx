@@ -40,7 +40,7 @@ export const SelectComponent: React.FC<PropsType> = ({name, label, handleChange,
                     onChange={handleChange}
                 >
                     {guests.filter(el => el.userName !== user).map((el, index) => {
-                        return <MenuItem key={index} value={el.userName}>{el.userName}</MenuItem>
+                        if(el.userName) return <MenuItem key={index} value={el.userName}>{el.userName}</MenuItem>
                     })}
                 </Select>
                 {meta.touched && meta.error && <FormHelperText error>{meta.error}</FormHelperText>}

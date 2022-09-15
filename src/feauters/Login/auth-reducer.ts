@@ -16,8 +16,7 @@ export type SnackbarType = {
 }
 
 export type IUserType = {
-    userName: string
-    password: string
+    userName: string | null
 }
 
 const initState: InitStateType = {
@@ -37,12 +36,16 @@ export const Login = createAsyncThunk(
             setTimeout(async () => {
 
                 const response = await authApi.login()
-                const mockUser = response.data.find(user => user.userName === param.userName && user.password === param.password)
+                const mockUser = response.data.find(user => user.userName === param.userName )
                 if (mockUser) {
 
-                    dispatch(setUser({user: {userName: param.userName, password: param.password}}))
+                    dispatch(setUser({user: {userName: param.userName}}))
                     dispatch(setIsLoggedIn({isLoggedIn: true}))
                     dispatch(setError({error: ''}))
+                    localStorage.setItem('auth', 'true')
+                    if(param.userName) {
+                        localStorage.setItem('userName', param.userName)
+                    }
                     dispatch(setAppSnackbarValue({type: snackbarType.SUCCESS, message: 'Вы успешно авторизовались'}))
                 } else {
                     dispatch(setError({error: 'Чел, какая-то ошибка, походу пароль или логин неверный'}))
@@ -66,6 +69,8 @@ export const Logout = createAsyncThunk(
                 dispatch(setUser({user: {} as IUserType}))
                 dispatch(setIsLoggedIn({isLoggedIn: false}))
                 dispatch(setIsLoading({setIsLoading: false}))
+                localStorage.removeItem('auth')
+                localStorage.removeItem('userName')
                 dispatch(setAppSnackbarValue({type: snackbarType.SUCCESS, message: 'Вы успешно вышли'}))
             }, 3000)
 

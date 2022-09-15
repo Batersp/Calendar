@@ -23,7 +23,7 @@ export const LoginComponent = () => {
 
     const onSubmitHandler = async (values: LoginType, {setSubmitting, resetForm}: FormikHelpers<LoginType>) => {
         console.log(values)
-        await dispatch(Login({password: values.password, userName: values.name}))
+        await dispatch(Login({userName: values.name}))
         setSubmitting(false)
         resetForm()
     }

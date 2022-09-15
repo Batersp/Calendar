@@ -34,8 +34,8 @@ export const slice = createSlice({
             setGuests: (state, action: PayloadAction<{guests: IUserType[]}>) => {
                 state.guests = action.payload.guests
             },
-            setEvent: (state, action: PayloadAction<{events: ModalFormType[]}>) => {
-                state.events = action.payload.events
+            setEvent: (state, action: PayloadAction<{event: ModalFormType}>) => {
+                state.events.push(action.payload.event)
             }
         }
     }

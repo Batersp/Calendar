@@ -3,6 +3,7 @@ import style from './Calendar.module.css'
 import {CalendarInto} from "./CalendarInto/CalendarInto";
 import Button from "@mui/material/Button/Button";
 import {BasicModal} from "../../common/components/Modal/Modal";
+import {Events} from "./Events/Events";
 
 export const Calendar = () => {
 
@@ -10,7 +11,10 @@ export const Calendar = () => {
 
     return (
         <div className={style.main}>
-            <CalendarInto/>
+            <div className={style.content}>
+                <CalendarInto/>
+                <Events/>
+            </div>
             <Button onClick={() => setOpenModal(true)} fullWidth variant="contained">Добавить событие</Button>
             <BasicModal open={openModal} callback={setOpenModal}/>
         </div>
