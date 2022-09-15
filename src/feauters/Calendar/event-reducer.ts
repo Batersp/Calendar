@@ -27,18 +27,48 @@ export const fetchGuests = createAsyncThunk(
     }
 )
 
+export const createEvent = createAsyncThunk(
+    'event/createEvent',
+    async (param: ModalFormType, {dispatch}) => {
+        try {
+            const events = localStorage.getItem('events') || '[]'
+            const json = JSON.parse(events) as ModalFormType[]
+            json.push(param)
+            dispatch(setEvents({events: json}))
+            localStorage.setItem('events', JSON.stringify(json))
+
+        } catch (e) {
+
+        }
+    }
+)
+
+export const fetchEvents = createAsyncThunk(
+    'event/fetchEvents',
+    async (param: {userName: string | null}, {dispatch}) => {
+        try {
+            const events = localStorage.getItem('events') || '[]'
+            const json = JSON.parse(events) as ModalFormType[]
+            const currentUserEvents = json.filter(el => el.guest === param.userName || el.author === param.userName)
+            dispatch(setEvents({events: currentUserEvents}))
+        } catch (e) {
+
+        }
+    }
+)
+
 export const slice = createSlice({
         name: 'event',
         initialState: initState,
         reducers: {
-            setGuests: (state, action: PayloadAction<{guests: IUserType[]}>) => {
+            setGuests: (state, action: PayloadAction<{ guests: IUserType[] }>) => {
                 state.guests = action.payload.guests
             },
-            setEvent: (state, action: PayloadAction<{event: ModalFormType}>) => {
-                state.events.push(action.payload.event)
+            setEvents: (state, action: PayloadAction<{ events: ModalFormType[] }>) => {
+                state.events = action.payload.events
             }
         }
     }
 )
 
-export const {setGuests, setEvent} = slice.actions
+export const {setGuests, setEvents} = slice.actions

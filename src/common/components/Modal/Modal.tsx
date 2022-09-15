@@ -7,7 +7,7 @@ import {Formik} from "formik";
 import {ModalForm} from "./ModalForm/ModalForm";
 import {validateModalForm} from "./ModalForm/validateModalForm";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {setEvent} from "../../../feauters/Calendar/event-reducer";
+import {createEvent} from "../../../feauters/Calendar/event-reducer";
 import {authSelectors} from "../../../feauters/Login";
 
 const styles = {
@@ -34,14 +34,14 @@ type PropsType = {
     callback: (value: boolean) => void
 }
 
-export const  BasicModal: React.FC<PropsType> = ({open, callback}) => {
+export const BasicModal: React.FC<PropsType> = ({open, callback}) => {
     const handleClose = () => callback(false);
 
     const dispatch = useAppDispatch()
     const author = useAppSelector(authSelectors.selectUserName)
 
     const onSubmitHandler = (values: ModalFormType) => {
-        dispatch(setEvent({event: values}))
+        dispatch(createEvent(values))
         handleClose()
     }
 
@@ -58,17 +58,17 @@ export const  BasicModal: React.FC<PropsType> = ({open, callback}) => {
                 <Box sx={styles}>
 
                     <div className={style.main}>
-                            <Typography variant="h4" className={style.title}>
-                                Add Event
-                            </Typography>
-                            <Formik
-                                initialValues={initState}
-                                validationSchema={validateModalForm}
-                                onSubmit={onSubmitHandler}
-                                validateOnMount={false}
-                            >
-                                {formik => <ModalForm formik={formik}/>}
-                            </Formik>
+                        <Typography variant="h4" className={style.title}>
+                            Add Event
+                        </Typography>
+                        <Formik
+                            initialValues={initState}
+                            validationSchema={validateModalForm}
+                            onSubmit={onSubmitHandler}
+                            validateOnMount={false}
+                        >
+                            {formik => <ModalForm formik={formik}/>}
+                        </Formik>
                     </div>
                 </Box>
             </Modal>
